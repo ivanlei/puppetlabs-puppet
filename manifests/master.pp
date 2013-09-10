@@ -8,7 +8,7 @@
 #  ['modulepath']               - Module path to be served by the puppet master
 #  ['manifest']                 - Manifest path
 #  ['reports']                  - Turn on puppet reports
-#  ['storeconfigs']             - Use storedcofnigs
+#  ['storeconfigs']             - Use storedconfigs
 #  ['storeconfigs_dbserver']    - Puppetdb server
 #  ['storeconfigs_dbport']      - Puppetdb port
 #  ['certname']                 - The certname the puppet master should use
@@ -17,18 +17,19 @@
 #  ['puppet_ssldir']            - Puppet sll directory
 #  ['puppet_docroot']           - Doc root to be configured in apache vhost
 #  ['puppet_vardir']            - Vardir used by puppet
-#  ['puppet_passenger_port']    - Port to conifgure passenger on default 8140
+#  ['puppet_passenger_port']    - Port to configure passenger on default 8140
 #  ['puppet_master_package']    - Puppet master package
 #  ['puppet_master_service']    - Puppet master service
 #  ['version']                  - Version of the puppet master package to install
 #  ['apache_serveradmin']       - Apache server admin
 #  ['puppetdb_startup_timeout'] - The timeout for puppetdb
+#  ['hiera_config']             - The hiera configuration file
 #
 # Requires:
 #
 #  - inifile
 #  - Class['puppet::params']
-#  - Class[puppet::passenger]
+#  - Class['puppet::passenger']
 #  - Class['puppet::storeconfigs']
 #
 # Sample Usage:
@@ -40,7 +41,7 @@
 #
 #  class { "puppet::master":
 #    modulepath             => inline_template("<%= modulepath.join(':') %>"),
-#    storedcofnigs          => 'true',
+#    storedconfigs          => 'true',
 #  }
 #
 class puppet::master (
@@ -64,7 +65,8 @@ class puppet::master (
   $version                  = 'present',
   $apache_serveradmin       = $::puppet::params::apache_serveradmin,
   $pluginsync               = true,
-  $puppetdb_startup_timeout = '60'
+  $puppetdb_startup_timeout = '60',
+  $hiera_config             = $::puppet::params::hiera_config
 ) inherits puppet::params {
 
   anchor { 'puppet::master::begin': }
@@ -204,6 +206,12 @@ class puppet::master (
     ensure  => present,
     setting => 'pluginsync',
     value   => $pluginsync,
+  }
+
+  ini_setting {'puppetmasterhiera_config':
+    ensure  => present,
+    setting => 'hiera_config',
+    value   => $hiera_config,
   }
 
   if $reporturl != 'UNSET'{

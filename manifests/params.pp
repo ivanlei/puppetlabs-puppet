@@ -37,6 +37,7 @@ class puppet::params {
       $puppet_conf                  = '/etc/puppet/puppet.conf'
       $puppet_vardir                = '/var/lib/puppet'
       $puppet_ssldir                = '/var/lib/puppet/ssl'
+      $hiera_config                 = '/etc/puppet/hiera.yaml'
       $passenger_package            = 'mod_passenger'
       $rack_package                 = 'rubygem-rack'
     }
@@ -49,6 +50,7 @@ class puppet::params {
       $puppet_conf                  = '/etc/puppet/puppet.conf'
       $puppet_vardir                = '/var/lib/puppet'
       $puppet_ssldir                = '/var/lib/puppet/ssl'
+      $hiera_config                 = '/etc/puppet/hiera.yaml'
       $passenger_package            = 'libapache2-mod-passenger'
       $rack_package                 = 'librack-ruby'
     }
@@ -58,6 +60,7 @@ class puppet::params {
       $puppet_conf                  = '/usr/local/etc/puppet/puppet.conf'
       $puppet_vardir                = '/var/puppet'
       $puppet_ssldir                = '/var/puppet/ssl'
+      $hiera_config                 = '/usr/local/etc/puppet/hiera.yaml'
     }
     Darwin: {
       $puppet_agent_service         = 'com.puppetlabs.puppet'
@@ -65,6 +68,7 @@ class puppet::params {
       $puppet_conf                  = '/etc/puppet/puppet.conf'
       $puppet_vardir                = '/var/lib/puppet'
       $puppet_ssldir                = '/etc/puppet/ssl'
+      $hiera_config                 = '/etc/puppet/hiera.yaml'
     }
     default: {
       err('The Puppet module does not support your os')
