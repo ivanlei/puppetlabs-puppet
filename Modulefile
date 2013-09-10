@@ -9,4 +9,4 @@ project_page 'https://github.com/ivanlei/puppetlabs-puppet'
 ## Add dependencies, if any:
 dependency 'ivanlei/inifile', '>= 0.5.0'
 dependency 'puppetlabs/apache', '>= 0.8.0'
-dependency 'puppetlabs/puppetdb', '>= 1.1.5'
+dependency 'ivanlei/puppetdb', '>= 1.1.5'
